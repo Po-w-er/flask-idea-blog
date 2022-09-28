@@ -1,0 +1,57 @@
+{%  extends "base.html" %}
+
+{% block content %}
+<div class="profile-detail">
+  <div><img  class="profile-pic" src="{{ image_file }}" alt=""></div>
+<div class="profile-text">
+  <h1>{{current_user.username}}</h1>
+  <p>{{current_user.email}}</p>
+</div>
+</div>
+
+ 
+  <form action=" " method="POST" enctype="multipart/form-data" novalidate>
+    {{form.hidden_tag()}}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Update Account</legend>
+       <div class="mb-3 ">
+         {{form.email.label(class="form-label")}}
+         {% if form.email.errors %}
+         {{ form.email( class = "form-control is-invalid")}}
+         <div class="invalid-feedback" >
+          {% for error in form.email.errors %}
+          <span>{{error}}</span> 
+       {% endfor %}
+         </div>
+         {% else %}
+         {{form.email(class="form-control")}}
+     {% endif %}
+       </div>
+       <div class="mb-3">
+        {{form.username.label(class="form-label")}}
+        {% if form.username.errors %}
+        {{form.username(class="form-control is-invalid")}}
+         <div class="invalid-feedback">
+           {% for error in form.username.errors %}
+            <span>{{error}}</span>
+           {% endfor %}
+         </div>
+         {% else %}
+        {{form.username(class="form-control")}}
+        {%  endif %}
+       </div>
+       <div class="form-group">
+         {{form.picture.label()}}
+         {{form.picture(class="form-control-file")}}
+         {% if form.picture.errors %}
+           {% for error in form.picture.errors %} <br>
+              <span class="text-danger">{{error}}</span> 
+           {% endfor %}
+         {% endif %}
+       </div>
+      <div class="mb-3">
+        {{form.submit(class="btn btn-outline-info btn-lg")}}
+      </div>
+    </fieldset>
+  </form>
+{% endblock %}
